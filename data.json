@@ -1,0 +1,43 @@
+{
+  "season": "2026-27",
+  "updated": "2026-10-19",
+  "teams": [
+    {"id": "bemidji-state", "name": "Bemidji State", "url": "https://bsubeavers.com/sports/womens-ice-hockey/stats/2026-27", "record": null, "skaters": [], "goalies": []},
+    {"id": "minnesota", "name": "Minnesota", "url": "https://gophersports.com/sports/womens-ice-hockey/stats/2026-27", "record": null, "skaters": [], "goalies": []},
+    {"id": "minnesota-duluth", "name": "Minnesota Duluth", "url": "https://umdbulldogs.com/sports/womens-ice-hockey/stats/2026-27", "record": null, "skaters": [], "goalies": []},
+    {"id": "minnesota-state", "name": "Minnesota State", "url": "https://msumavericks.com/sports/womens-ice-hockey/stats/2026-27", "record": null, "skaters": [], "goalies": []},
+    {"id": "ohio-state", "name": "Ohio State", "url": "https://ohiostatebuckeyes.com/sports/womens-ice-hockey/stats/2026-27", "record": null, "skaters": [], "goalies": []},
+    {
+      "id": "st-cloud-state",
+      "name": "St. Cloud State",
+      "url": "https://scsuhuskies.com/sports/womens-ice-hockey/stats/2026-27",
+      "record": {"overall": "6-2", "conference": "4-0"},
+      "skaters": [
+        {"num": 4, "name": "Alice Sauriol", "gp": 8, "g": 4, "a": 9, "pts": 13, "sh": 19, "sh_pct": 0.211, "plus_minus": 7, "ppg": 1, "shg": 0, "gwg": 0, "pim": 4},
+        {"num": 34, "name": "Sofianna Sundelin", "gp": 8, "g": 5, "a": 7, "pts": 12, "sh": 25, "sh_pct": 0.2, "plus_minus": 8, "ppg": 1, "shg": 0, "gwg": 1, "pim": 0},
+        {"num": 44, "name": "Maria Mikaelyan", "gp": 8, "g": 6, "a": 2, "pts": 8, "sh": 36, "sh_pct": 0.167, "plus_minus": 4, "ppg": 3, "shg": 0, "gwg": 2, "pim": 14},
+        {"num": 41, "name": "Siiri Yrjölä", "gp": 8, "g": 2, "a": 6, "pts": 8, "sh": 14, "sh_pct": 0.143, "plus_minus": 4, "ppg": 0, "shg": 0, "gwg": 1, "pim": 0},
+        {"num": 14, "name": "Maélie Pion", "gp": 6, "g": 0, "a": 6, "pts": 6, "sh": 22, "sh_pct": 0.0, "plus_minus": 2, "ppg": 0, "shg": 0, "gwg": 0, "pim": 0},
+        {"num": 9, "name": "Anna Sviridova", "gp": 8, "g": 1, "a": 2, "pts": 3, "sh": 16, "sh_pct": 0.063, "plus_minus": -1, "ppg": 1, "shg": 0, "gwg": 0, "pim": 4},
+        {"num": 11, "name": "Laura Zimmermann", "gp": 8, "g": 1, "a": 1, "pts": 2, "sh": 15, "sh_pct": 0.067, "plus_minus": 0, "ppg": 0, "shg": 0, "gwg": 1, "pim": 0},
+        {"num": 15, "name": "Marie Moran", "gp": 8, "g": 1, "a": 1, "pts": 2, "sh": 6, "sh_pct": 0.167, "plus_minus": 3, "ppg": 0, "shg": 0, "gwg": 0, "pim": 0},
+        {"num": 13, "name": "Sophie Olson", "gp": 8, "g": 0, "a": 2, "pts": 2, "sh": 5, "sh_pct": 0.0, "plus_minus": -1, "ppg": 0, "shg": 0, "gwg": 0, "pim": 4},
+        {"num": 18, "name": "Payton Holloway", "gp": 8, "g": 1, "a": 0, "pts": 1, "sh": 7, "sh_pct": 0.143, "plus_minus": -4, "ppg": 0, "shg": 0, "gwg": 1, "pim": 0},
+        {"num": 19, "name": "Myah Krueger", "gp": 8, "g": 1, "a": 0, "pts": 1, "sh": 3, "sh_pct": 0.333, "plus_minus": 1, "ppg": 0, "shg": 0, "gwg": 0, "pim": 0},
+        {"num": 40, "name": "Hannele Tarkiainen", "gp": 4, "g": 1, "a": 0, "pts": 1, "sh": 3, "sh_pct": 0.333, "plus_minus": 2, "ppg": 0, "shg": 0, "gwg": 0, "pim": 0},
+        {"num": 5, "name": "Jasmine Hovda", "gp": 8, "g": 0, "a": 1, "pts": 1, "sh": 9, "sh_pct": 0.0, "plus_minus": 0, "ppg": 0, "shg": 0, "gwg": 0, "pim": 0},
+        {"num": 6, "name": "Madelyn Lee", "gp": 8, "g": 0, "a": 1, "pts": 1, "sh": 5, "sh_pct": 0.0, "plus_minus": 2, "ppg": 0, "shg": 0, "gwg": 0, "pim": 0},
+        {"num": 12, "name": "Raili Mustonen", "gp": 8, "g": 0, "a": 1, "pts": 1, "sh": 5, "sh_pct": 0.0, "plus_minus": 1, "ppg": 0, "shg": 0, "gwg": 0, "pim": 0},
+        {"num": 17, "name": "Julianne Labbé", "gp": 8, "g": 0, "a": 1, "pts": 1, "sh": 10, "sh_pct": 0.0, "plus_minus": -1, "ppg": 0, "shg": 0, "gwg": 0, "pim": 8},
+        {"num": 45, "name": "Regan Bulger", "gp": 8, "g": 0, "a": 1, "pts": 1, "sh": 8, "sh_pct": 0.0, "plus_minus": -1, "ppg": 0, "shg": 0, "gwg": 0, "pim": 2},
+        {"num": 2, "name": "Riley Iverson", "gp": 1, "g": 0, "a": 0, "pts": 0, "sh": 0, "sh_pct": 0.0, "plus_minus": 0, "ppg": 0, "shg": 0, "gwg": 0, "pim": 0},
+        {"num": 8, "name": "Tayla Lamabe", "gp": 8, "g": 0, "a": 0, "pts": 0, "sh": 10, "sh_pct": 0.0, "plus_minus": -2, "ppg": 0, "shg": 0, "gwg": 0, "pim": 0},
+        {"num": 22, "name": "Emily Mitchell", "gp": 5, "g": 0, "a": 0, "pts": 0, "sh": 1, "sh_pct": 0.0, "plus_minus": 0, "ppg": 0, "shg": 0, "gwg": 0, "pim": 0},
+        {"num": 27, "name": "Tristan Thompson", "gp": 7, "g": 0, "a": 0, "pts": 0, "sh": 7, "sh_pct": 0.0, "plus_minus": -1, "ppg": 0, "shg": 0, "gwg": 0, "pim": 8}
+      ],
+      "goalies": []
+    },
+    {"id": "st-thomas", "name": "St. Thomas", "url": "https://tommiesports.com/sports/womens-ice-hockey/stats/2026-27", "record": null, "skaters": [], "goalies": []},
+    {"id": "wisconsin", "name": "Wisconsin", "url": "https://uwbadgers.com/sports/womens-ice-hockey/stats/2026-27", "record": null, "skaters": [], "goalies": []}
+  ]
+}

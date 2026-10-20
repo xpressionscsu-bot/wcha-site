@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WCHA Women's Hockey Stats</title>
+<style>
+  :root { --bg:#fafafa; --fg:#1b1f24; --muted:#667085; --card:#fff; --line:#e4e7ec; --accent:#b4232a; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#14171a; --fg:#e8eaed; --muted:#98a2b3; --card:#1d2125; --line:#2f353b; --accent:#ef5b62; }
+  }
+  * { box-sizing:border-box }
+  body { margin:0; background:var(--bg); color:var(--fg); font:15px/1.45 system-ui,sans-serif }
+  header { padding:20px 16px 8px; max-width:1100px; margin:auto }
+  h1 { margin:0; font-size:1.5rem }
+  .sub { color:var(--muted); font-size:.85rem }
+  main { max-width:1100px; margin:auto; padding:8px 16px 40px }
+  nav { display:flex; gap:8px; margin:12px 0 }
+  nav button, select, input { font:inherit; padding:6px 12px; border:1px solid var(--line); background:var(--card); color:var(--fg); border-radius:8px }
+  nav button.on { background:var(--accent); border-color:var(--accent); color:#fff }
+  .controls { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px }
+  .wrap { overflow-x:auto; background:var(--card); border:1px solid var(--line); border-radius:10px }
+  table { border-collapse:collapse; width:100%; white-space:nowrap }
+  th, td { padding:8px 10px; text-align:right; border-bottom:1px solid var(--line) }
+  th:first-child, td:first-child, th.l, td.l { text-align:left }
+  th { cursor:pointer; user-select:none; font-size:.8rem; color:var(--muted); position:sticky; top:0; background:var(--card) }
+  th.sorted { color:var(--accent) }
+  tr:last-child td { border-bottom:0 }
+  .empty { color:var(--muted); padding:24px; text-align:center }
+  a { color:var(--accent) }
+</style>
+</head>
+<body>
+<header>
+  <h1>WCHA Women's Hockey Stats</h1>
+  <div class="sub" id="meta">Loading…</div>
+</header>
+<main>
+  <nav>
+    <button data-v="teams" class="on">Teams</button>
+    <button data-v="skaters">Skaters</button>
+    <button data-v="goalies">Goalies</button>
+  </nav>
+  <div class="controls" id="controls"></div>
+  <div class="wrap" id="out"></div>
+</main>
+<script>
+let D, view = "teams", sort = {teams:["pts","d"], skaters:["pts","d"], goalies:["sv_pct","d"]}, team = "all", q = "";
+
+const fmt = (k, v) => v == null ? "–" :
+  (k === "sh_pct" || k === "sv_pct") && typeof v === "number" ? v.toFixed(3).replace(/^0/, "") :
+  k === "gaa" && typeof v === "number" ? v.toFixed(2) : v;
+
+const sum = (a, k) => a.reduce((s, r) => s + (+r[k] || 0), 0);
+
+function teamRows() {
+  return D.teams.map(t => ({
+    name: t.name, url: t.url, record: t.record ? t.record.overall : null, conf: t.record ? t.record.conference : null,
+    players: t.skaters.length, g: sum(t.skaters, "g"), a: sum(t.skaters, "a"), pts: sum(t.skaters, "pts"),
+    ppg: sum(t.skaters, "ppg"), pim: sum(t.skaters, "pim"), has: t.skaters.length > 0
+  }));
+}
+function playerRows(kind) {
+  return D.teams.flatMap(t => (t[kind] || []).map(p => ({...p, team: t.name})))
+    .filter(p => (team === "all" || p.team === team) && p.name.toLowerCase().includes(q));
+}
+function table(cols, rows, key) {
+  const [sk, dir] = sort[key];
+  rows = [...rows].sort((a, b) => {
+    const x = a[sk], y = b[sk];
+    const c = typeof x === "string" || typeof y === "string" ? String(x ?? "").localeCompare(String(y ?? "")) : (x ?? -Infinity) - (y ?? -Infinity);
+    return dir === "d" ? -c : c;
+  });
+  if (!rows.length) return '<div class="empty">No data pulled yet. Run <code>python scrape.py</code>.</div>';
+  return "<table><thead><tr>" + cols.map(([k, l, left]) =>
+    `<th data-k="${k}" class="${left ? "l " : ""}${k === sk ? "sorted" : ""}">${l}${k === sk ? (dir === "d" ? " ▼" : " ▲") : ""}</th>`).join("") +
+    "</tr></thead><tbody>" + rows.map(r => "<tr>" + cols.map(([k, , left]) =>
+      `<td class="${left ? "l" : ""}">${k === "name" && r.url ? `<a href="${r.url}" target="_blank" rel="noopener">${r.name}</a>` : fmt(k, r[k])}</td>`).join("") + "</tr>").join("") +
+    "</tbody></table>";
+}
+
+function render() {
+  const c = document.getElementById("controls"), out = document.getElementById("out");
+  if (view === "teams") {
+    c.innerHTML = "";
+    out.innerHTML = table([["name","Team",1],["record","Record"],["conf","WCHA"],["players","Skaters"],["g","G"],["a","A"],["pts","PTS"],["ppg","PPG"],["pim","PIM"]], teamRows(), "teams");
+  } else {
+    c.innerHTML = `<select id="team"><option value="all">All teams</option>${D.teams.map(t => `<option ${t.name === team ? "selected" : ""}>${t.name}</option>`).join("")}</select>
+      <input id="q" placeholder="Search players" value="${q}">`;
+    document.getElementById("team").onchange = e => { team = e.target.value; render(); };
+    document.getElementById("q").oninput = e => { q = e.target.value.toLowerCase(); render(); document.getElementById("q").focus(); };
+    out.innerHTML = view === "skaters"
+      ? table([["name","Player",1],["team","Team",1],["num","#"],["gp","GP"],["g","G"],["a","A"],["pts","PTS"],["sh","SH"],["sh_pct","SH%"],["plus_minus","+/-"],["ppg","PPG"],["shg","SHG"],["gwg","GWG"],["pim","PIM"]], playerRows("skaters"), "skaters")
+      : table([["name","Player",1],["team","Team",1],["gp","GP"],["min","MIN"],["ga","GA"],["gaa","GAA"],["sv","SV"],["sv_pct","SV%"],["so","SO"]], playerRows("goalies"), "goalies");
+  }
+  out.querySelectorAll("th").forEach(th => th.onclick = () => {
+    const k = th.dataset.k, s = sort[view];
+    sort[view] = [k, s[0] === k && s[1] === "d" ? "a" : "d"]; render();
+  });
+}
+
+document.querySelectorAll("nav button").forEach(b => b.onclick = () => {
+  document.querySelectorAll("nav button").forEach(x => x.classList.toggle("on", x === b));
+  view = b.dataset.v; render();
+});
+
+fetch("data.json").then(r => r.json()).then(d => {
+  D = d;
+  document.getElementById("meta").textContent = `${d.season} season · updated ${d.updated} · ${d.teams.length} teams`;
+  render();
+}).catch(() => document.getElementById("out").innerHTML = '<div class="empty">Could not load data.json. Serve this folder with <code>python -m http.server</code> instead of opening the file directly.</div>');
+</script>
+</body>
+</html>

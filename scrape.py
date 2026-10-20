@@ -52,13 +52,16 @@ def parse_table(table):
     rows = table.find_all("tr")
     if not rows:
         return None, []
-    headers = [norm(c.get_text(" ")) for c in rows[0].find_all(["th", "td"])]
+    # header row = first row that has a "Player" column (some sites put a caption row first)
+    hi = next((i for i, tr in enumerate(rows)
+               if "player" in [norm(c.get_text(" ")) for c in tr.find_all(["th", "td"])]), 0)
+    headers = [norm(c.get_text(" ")) for c in rows[hi].find_all(["th", "td"])]
     out = []
-    for tr in rows[1:]:
+    for tr in rows[hi + 1:]:
         cells = [c.get_text(" ", strip=True) for c in tr.find_all(["th", "td"])]
-        if len(cells) != len(headers):
+        if len(cells) < 4:
             continue
-        rec = dict(zip(headers, cells))
+        rec = dict(zip(headers, cells))  # tolerate extra/missing trailing cells
         who = rec.get("player", "")
         if not who or who.lower() in ("total", "opponents", "opponent"):
             continue
@@ -71,23 +74,40 @@ def parse_table(table):
             m = re.match(r"\d+-(\d+)", str(rec["pn_pim"]))
             row["pim"] = int(m.group(1)) if m else None
             row.pop("pn_pim")
+        # goalie columns vary by school: GP-GS / AVG / SHO -> gp / gaa / so
+        if "gp_gs" in row:
+            m = re.match(r"(\d+)", str(rec.get("gp_gs", "")))
+            row["gp"] = int(m.group(1)) if m else None
+            row.pop("gp_gs")
+        if "avg" in row:
+            row["gaa"] = row.pop("avg")
+        if "sho" in row:
+            row["so"] = row.pop("sho")
+        row.pop("bio_link", None)
         out.append(row)
     return headers, out
 
 
 def scrape_team(url: str):
-    html = requests.get(url, headers=HEADERS, timeout=30)
-    html.raise_for_status()
-    soup = BeautifulSoup(html.text, "html.parser")
+    resp = requests.get(url, headers=HEADERS, timeout=30)
+    print(f"  GET {url} -> {resp.status_code}, {len(resp.text)} bytes")
+    resp.raise_for_status()
+    soup = BeautifulSoup(resp.text, "html.parser")
     skaters, goalies = [], []
+    seen = []
     for t in soup.find_all("table"):
         headers, rows = parse_table(t)
         if not headers or "player" not in headers:
             continue
-        if "gaa" in headers or "sv_pct" in headers:
-            goalies = rows
+        seen.append((headers[:8], len(rows)))
+        is_goalie = bool({"gaa", "avg", "sv_pct", "gp_gs"} & set(headers))
+        if is_goalie:
+            if not goalies:  # first goalie table = overall; later ones are conference splits
+                goalies = rows
         elif "pts" in headers and not skaters:
             skaters = rows  # first match = overall; later tables are conference splits
+    if not skaters:
+        print(f"  tables with a Player column: {seen or 'none (page may load stats with JavaScript)'}")
     record = None
     m = re.search(r"Team Stats\s*\((\d+-\d+(?:-\d+)?),\s*(\d+-\d+(?:-\d+)?)\)", soup.get_text(" "))
     if m:

@@ -1,6 +1,6 @@
 {
   "season": "2026-27",
-  "updated": "2026-11-02",
+  "updated": "2026-11-03",
   "teams": [
     {
       "id": "bemidji-state",
@@ -103,7 +103,7 @@
           "gtg": 0,
           "otg": 0,
           "htg": 0,
-          "uag": 1,
+          "uag": 0,
           "min": 2,
           "maj": 0,
           "oth": 0,
@@ -132,6 +132,29 @@
           "oth": 0,
           "blk": 14,
           "name": "Maddie McCullough",
+          "pim": 8
+        },
+        {
+          "gp": 10,
+          "g": 5,
+          "a": 3,
+          "pts": 8,
+          "sh": 45,
+          "sh_pct": 0.111,
+          "plus_minus": 8,
+          "ppg": 1,
+          "shg": 0,
+          "fg": 2,
+          "gwg": 0,
+          "gtg": 0,
+          "otg": 0,
+          "htg": 0,
+          "uag": 1,
+          "min": 4,
+          "maj": 0,
+          "oth": 0,
+          "blk": 3,
+          "name": "Bella Fanale",
           "pim": 8
         },
         {
@@ -225,29 +248,6 @@
           "blk": 6,
           "name": "Emma Kreisz",
           "pim": 4
-        },
-        {
-          "gp": 10,
-          "g": 5,
-          "a": 2,
-          "pts": 7,
-          "sh": 45,
-          "sh_pct": 0.111,
-          "plus_minus": 8,
-          "ppg": 1,
-          "shg": 0,
-          "fg": 2,
-          "gwg": 0,
-          "gtg": 0,
-          "otg": 0,
-          "htg": 0,
-          "uag": 1,
-          "min": 4,
-          "maj": 0,
-          "oth": 0,
-          "blk": 3,
-          "name": "Bella Fanale",
-          "pim": 8
         },
         {
           "gp": 10,

@@ -1,6 +1,6 @@
 {
   "season": "2026-27",
-  "updated": "2026-11-04",
+  "updated": "2026-11-05",
   "teams": [
     {
       "id": "bemidji-state",
@@ -204,6 +204,29 @@
           "pim": 2
         },
         {
+          "gp": 10,
+          "g": 1,
+          "a": 7,
+          "pts": 8,
+          "sh": 23,
+          "sh_pct": 0.043,
+          "plus_minus": 4,
+          "ppg": 0,
+          "shg": 0,
+          "fg": 0,
+          "gwg": 1,
+          "gtg": 0,
+          "otg": 1,
+          "htg": 0,
+          "uag": 0,
+          "min": 0,
+          "maj": 0,
+          "oth": 0,
+          "blk": 5,
+          "name": "Ava Lindsay",
+          "pim": 0
+        },
+        {
           "gp": 8,
           "g": 1,
           "a": 7,
@@ -248,29 +271,6 @@
           "blk": 6,
           "name": "Emma Kreisz",
           "pim": 4
-        },
-        {
-          "gp": 10,
-          "g": 1,
-          "a": 6,
-          "pts": 7,
-          "sh": 23,
-          "sh_pct": 0.043,
-          "plus_minus": 4,
-          "ppg": 0,
-          "shg": 0,
-          "fg": 0,
-          "gwg": 1,
-          "gtg": 0,
-          "otg": 1,
-          "htg": 0,
-          "uag": 0,
-          "min": 0,
-          "maj": 0,
-          "oth": 0,
-          "blk": 5,
-          "name": "Ava Lindsay",
-          "pim": 0
         },
         {
           "gp": 10,
